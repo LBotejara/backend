@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var unique = require('mongoose-unique-validator');
 
-var ProveedorSchema = new mongoose.Schema({
+var ClienteSchema = new mongoose.Schema({
     nombre: String,
     cif: { type: String, unique: true },
     domicilio: String,
@@ -13,6 +13,6 @@ var ProveedorSchema = new mongoose.Schema({
     contacto: String
 })
 
-ProveedorSchema.plugin(unique, { message: 'El cif introducido ya existe'});
+ClienteSchema.plugin(unique, { message: 'El cif introducido ya existe'});
 
-module.exports = mongoose.model('Proveedor', ProveedorSchema);
+module.exports = mongoose.model('Cliente', ClienteSchema);

@@ -1,14 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
-var Proveedor = require('../models/proveedor.js');
-var autentoken = require('../middleware/autentoken');
+var Factura = require('../models/factura.js');
 
 var app = express();
 
 app.get('/', (req, res, next) => {
 
-    Proveedor.find({}).exec((err, proveedores)=>{
+    Factura.find({}).exec((err, facturas)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -18,7 +17,7 @@ app.get('/', (req, res, next) => {
         }
         res.status(200).json({
             ok: true,
-            proveedores: proveedores
+            facturas: facturas
         })
     });
 
@@ -26,7 +25,7 @@ app.get('/', (req, res, next) => {
 
 app.get('/:id', function(req, res, next){
     
-    Proveedor.findById(req.params.id, (err, proveedor)=>{
+    Factura.findById(req.params.id, (err, factura)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -36,41 +35,42 @@ app.get('/:id', function(req, res, next){
         }
         res.status(200).json({
             ok: true,
-            proveedor: proveedor
+            factura: factura
         })
     })  
 });
 
 
-app.post('/', (req, res, next)=>{
+app.post('/', (req, res)=>{
 
     var body = req.body;
 
-    var proveedor = new Proveedor({
+    var factura = new Factura({
         nombre: body.nombre,
         cif: body.cif,
         domicilio: body.domicilio,
-        cp: body.cp,
-        localidad: body.localidad,
-        provincia: body.provincia,
-        telefono: body.telefono,
-        email: body.email,
-        contacto: body.contacto
+        fecha: body.fecha,
+        concepto: body.concepto,
+        base: body.base,
+        retencion: body.retencion,
+        tipo: body.tipo,
+        irpf: body.irpf,
+        importe: body.importe,
+        total: body.total
     });
 
-    proveedor.save((err, proveedorGuardado)=>{
-        
+    factura.save((err, facturaGuardada)=>{
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear el proveedor',
+                mensaje: 'Error al crear la factura',
                 errores: err
             })
         }
 
         res.status(200).json({
             ok: true,
-            proveedor: proveedorGuardado
+            factura: facturaGuardada
         })
     });
 
@@ -79,21 +79,21 @@ app.post('/', (req, res, next)=>{
 
 app.put('/:id', function(req, res, next){
 
-    Proveedor.findByIdAndUpdate(req.params.id, req.body, function(err, datos){
+    Factura.findByIdAndUpdate(req.params.id, req.body, function(err, datos){
         if (err) return next(err);
         res.status(201).json({
             ok: 'true',
-            mensaje: 'Proveedor actualizado'
+            mensaje: 'Factura actualizada'
         });
     });
 
 });
 
-app.delete('/:id', autentoken.verificarToken, function(req, res, error){
+app.delete('/:id', function(req, res, error){
 
-    Proveedor.findByIdAndRemove(req.params.id, function(err, datos){
+    Factura.findByIdAndRemove(req.params.id, function(err, datos){
         if (err) return next(err);
-        var mensaje = 'Proveedor ' + datos.nombre + ' eliminado';
+        var mensaje = 'Factura eliminada';
         res.status(200).json({
             ok: 'true',
             mensaje: mensaje
