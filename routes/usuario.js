@@ -27,6 +27,7 @@ app.post('/', function(req, res, next){
 
     var usuario = new Usuario({
         nombre: body.nombre,
+        fecha: body.fecha,
         email: body.email,
         password: bcryptjs.hashSync(body.password, 10),
         rol: body.rol
@@ -61,6 +62,7 @@ app.put('/:id', (req, res, next)=>{
         }
 
     usuario.nombre = body.nombre;
+    usuario.fecha = body.fecha;
     usuario.email = body.email;
     usuario.rol = body.rol;
 

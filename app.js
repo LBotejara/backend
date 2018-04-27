@@ -5,6 +5,7 @@ var proveedor = require('./routes/proveedor');
 var factura = require('./routes/factura');
 var usuario = require('./routes/usuario');
 var login = require('./routes/login');
+var sesion = require('./routes/sesion');
 var cliente = require('./routes/cliente');
 var presupuesto = require('./routes/presupuesto');
 
@@ -34,6 +35,7 @@ app.use('/proveedor', proveedor);
 app.use('/factura', factura);
 app.use('/usuario', usuario);
 app.use('/login', login);
+app.use('/sesion', sesion);
 app.use('/cliente', cliente);
 app.use('/presupuesto', presupuesto);
 
