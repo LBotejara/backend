@@ -35,6 +35,7 @@ app.post('/', (req, res, next)=>{
             login: body.login,
             domicilio: body.domicilio,
             logout: body.logout,
+            duracion: body.duracion
         });
     
         sesion.save((err, sesionGuardada)=>{
