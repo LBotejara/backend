@@ -36,7 +36,7 @@ app.use('/factura', factura);
 app.use('/usuario', usuario);
 app.use('/login', login);
 app.use('/sesion', sesion);
-app.use('/cliente', cliente);
+app.use('/clientes', cliente);
 app.use('/presupuesto', presupuesto);
 
 app.listen(3000, function(){
