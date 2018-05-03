@@ -5,9 +5,11 @@ var Cliente = require('../models/cliente.js');
 
 var app = express();
 
-app.get('/', (req, res, next) => {
+app.get('/localidad/:localidad', (req, res, next) => {
 
-    Cliente.find({}).exec((err, clientes)=>{
+    var localidad = req.params.localidad;
+
+    Cliente.find({localidad:{$regex:localidad,$options:'i'}}).exec((err, clientes)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -22,6 +24,26 @@ app.get('/', (req, res, next) => {
     });
 
 });
+
+app.get('/nombre/:nombre', (req, res, next) => {
+    
+        var nombre = req.params.nombre;
+    
+        Cliente.find({nombre:{$regex:nombre,$options:'i'}}).exec((err, clientes)=>{
+            if(err){
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: 'Error acceso DB',
+                    errores: err
+                })
+            }
+            res.status(200).json({
+                ok: true,
+                clientes: clientes
+            })
+        });
+    
+    });
 
 app.get('/:id', function(req, res, next){
     
