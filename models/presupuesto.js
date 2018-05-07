@@ -2,17 +2,13 @@ var mongoose = require('mongoose');
 //var unique = require('mongoose-unique-validator');
 
 var PresupuestoSchema = new mongoose.Schema({
-    proveedor: String,
-    cif: String,
-    domicilio: String,
+    cliente: String,
     fecha: String,
-    concepto: String,
-    base: Number,
-    retencion: Boolean,
+    items: Array,
+    suma: Number,
     tipo: Number,
-    irpf: String,
-    importe: String,
-    total: String
+    iva: Number,
+    total: Number,
 })
 
 //FacturaSchema.plugin(unique, { message: 'El cif introducido ya existe'});

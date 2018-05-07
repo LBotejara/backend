@@ -1,13 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
-var Presupuesto = require('../models/presupuesto.js');
+var Articulo = require('../models/articulo.js');
 
 var app = express();
 
 app.get('/', (req, res, next) => {
 
-    Presupuesto.find({}).exec((err, presupuestos)=>{
+    Articulo.find({}).exec((err, articulos)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -17,15 +17,14 @@ app.get('/', (req, res, next) => {
         }
         res.status(200).json({
             ok: true,
-            presupuestos: presupuestos
+            articulos: articulos
         })
     });
-
 });
 
 app.get('/:id', function(req, res, next){
     
-    Presupuesto.findById(req.params.id, (err, presupuesto)=>{
+    Articulo.findById(req.params.id, (err, articulo)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -35,7 +34,7 @@ app.get('/:id', function(req, res, next){
         }
         res.status(200).json({
             ok: true,
-            presupuesto: presupuesto
+            articulo: articulo
         })
     })  
 });
@@ -45,28 +44,22 @@ app.post('/', (req, res)=>{
 
     var body = req.body;
 
-    var presupuesto = new Presupuesto({
-        cliente: body.cliente,
-        fecha: body.fecha,
-        items: body.items,
-        suma: body.suma,
-        tipo: body.tipo,
-        iva: body.iva,
-        total: body.total,
+    var articulo = new Articulo({
+        referencia: body.referencia,
+        precio: body.precio
     });
 
-    presupuesto.save((err, presupuestoGuardada)=>{
+    articulo.save((err, articuloGuardado)=>{
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear la presupuesto',
+                mensaje: 'Error al crear el articulo',
                 errores: err
             })
         }
 
         res.status(200).json({
-            ok: true,
-            presupuesto: presupuestoGuardada
+            ok: true
         })
     });
 
@@ -75,11 +68,11 @@ app.post('/', (req, res)=>{
 
 app.put('/:id', function(req, res, next){
 
-    Presupuesto.findByIdAndUpdate(req.params.id, req.body, function(err, datos){
+    Articulo.findByIdAndUpdate(req.params.id, req.body, function(err, datos){
         if (err) return next(err);
         res.status(201).json({
             ok: 'true',
-            mensaje: 'Presupuesto actualizada'
+            mensaje: 'Articulo actualizado'
         });
     });
 
@@ -87,9 +80,9 @@ app.put('/:id', function(req, res, next){
 
 app.delete('/:id', function(req, res, error){
 
-    Presupuesto.findByIdAndRemove(req.params.id, function(err, datos){
+    Articulo.findByIdAndRemove(req.params.id, function(err, datos){
         if (err) return next(err);
-        var mensaje = 'Presupuesto eliminada';
+        var mensaje = 'Artículo eliminado';
         res.status(200).json({
             ok: 'true',
             mensaje: mensaje
