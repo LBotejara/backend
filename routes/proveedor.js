@@ -9,7 +9,7 @@ var app = express();
 app.get('/', (req, res, next) => {
 
     var desde = req.query.desde;
-    desde = Number(desde)
+    desde = Number(desde);
 
     Proveedor.find({}).skip(desde).limit(5).exec((err, proveedores)=>{
         if(err){
@@ -20,14 +20,17 @@ app.get('/', (req, res, next) => {
             })
         }
 
-        Proveedor.count({},(err, totales)=>{
+        Proveedor.count({}, (err, totales)=>{
             res.status(200).json({
                 ok: true,
                 proveedores: proveedores,
                 totales: totales
             })
         })
+
+
     });
+
 });
 
 app.get('/:id', function(req, res, next){
@@ -49,7 +52,7 @@ app.get('/:id', function(req, res, next){
 
 
 app.post('/', (req, res, next)=>{
-
+    
     var body = req.body;
 
     var proveedor = new Proveedor({
@@ -95,7 +98,7 @@ app.put('/:id', function(req, res, next){
 
 });
 
-app.delete('/:id', autentoken.verificarToken, function(req, res, error){
+app.delete('/:id', autentoken.verificarToken ,function(req, res, error){
 
     Proveedor.findByIdAndRemove(req.params.id, function(err, datos){
         if (err) return next(err);

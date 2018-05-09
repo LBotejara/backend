@@ -53,21 +53,21 @@ app.post('/', (req, res)=>{
         suma: body.suma,
         tipo: body.tipo,
         iva: body.iva,
-        total: body.total,
+        total: body.total
     });
 
-    presupuesto.save((err, presupuestoGuardada)=>{
+    presupuesto.save((err, presupuestoGuardado)=>{
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear la presupuesto',
+                mensaje: 'Error al crear el presupuesto',
                 errores: err
             })
         }
 
         res.status(200).json({
             ok: true,
-            presupuesto: presupuestoGuardada
+            presupuesto: presupuestoGuardado
         })
     });
 
@@ -80,7 +80,7 @@ app.put('/:id', function(req, res, next){
         if (err) return next(err);
         res.status(201).json({
             ok: 'true',
-            mensaje: 'Presupuesto actualizada'
+            mensaje: 'Presupuesto actualizado'
         });
     });
 
@@ -90,7 +90,7 @@ app.delete('/:id', function(req, res, error){
 
     Presupuesto.findByIdAndRemove(req.params.id, function(err, datos){
         if (err) return next(err);
-        var mensaje = 'Presupuesto eliminada';
+        var mensaje = 'Presupuesto eliminado';
         res.status(200).json({
             ok: 'true',
             mensaje: mensaje

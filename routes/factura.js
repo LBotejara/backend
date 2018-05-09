@@ -46,7 +46,7 @@ app.post('/', (req, res)=>{
     var body = req.body;
 
     var factura = new Factura({
-        nombre: body.nombre,
+        proveedor: body.proveedor,
         cif: body.cif,
         domicilio: body.domicilio,
         fecha: body.fecha,

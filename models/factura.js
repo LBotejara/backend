@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 //var unique = require('mongoose-unique-validator');
 
 var FacturaSchema = new mongoose.Schema({
-    nombre: String,
+    proveedor: String,
     cif: String,
     domicilio: String,
     fecha: String,

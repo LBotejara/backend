@@ -4,7 +4,7 @@ exports.verificarToken = function(req, res, next){
 
     var token = req.query.token;
 
-    jsonwebtoken.verify(token, 'qwertyuiop', (err, decoded)=>{
+    jsonwebtoken.verify(token, 'hghjgersweio', (err, decoded)=>{
         if(err){
             return res.status(400).json({
                 ok: false,
