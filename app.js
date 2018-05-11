@@ -14,7 +14,8 @@ var app = express();
 
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/erp',{promiseLibrary: require('bluebird')})
+// mongoose.connect('mongodb://localhost:27017,localhost27102,localhost27103/erp?replicaset=clusterserv',{useMongoClient:true, promiseLibrary: require('bluebird')})
+mongoose.connect('mongodb://localhost:27017/erp',{promiseLibrary:require('bluebird')})
            .then(()=>{
                console.log('Conectado a la DB')
            })
